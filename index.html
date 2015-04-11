@@ -3,57 +3,67 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-    <script src="js/common.js"></script>
-    <!--<script src="http://api.map.baidu.com/api?v=1.5&ak=2LUkkKOQZAA540yq3ciYRKtv&callback=initialize"></script>-->
+    <!--<script src="js/common.js"></script>-->
+    <script src="http://api.map.baidu.com/api?v=1.5&ak=2LUkkKOQZAA540yq3ciYRKtv"></script>
     <!--<script src="http://api.map.baidu.com/api?v=1.4"></script>-->
-    <title>hello world</title>
+    <title>找油网</title>
+    <script src="js/mui.min.js"></script>
+    <link href="css/mui.min.css" rel="stylesheet"/>
+    <script src="js/jquery-1.11.2.min.js"></script>
+    <script src="ui/qiao.js"></script>
     <script type="text/javascript">
-    	function geoInf( position ) {
-			var str = "";
-			var timeflag = position.timestamp;//获取到地理位置信息的时间戳；一个毫秒数；
-			str += "时间戳："+timeflag+"<br/>";
-			var codns = position.coords;//获取地理坐标信息；
-			var lat = codns.latitude;//获取到当前位置的纬度；
-			str += "纬度："+lat+"<br/>";
-			var longt = codns.longitude;//获取到当前位置的经度
-			str += "经度："+longt+"<br/>";
-			var alt = codns.altitude;//获取到当前位置的海拔信息；
-			str += "海拔："+alt+"<br/>";
-			var accu = codns.accuracy;//地理坐标信息精确度信息；
-			str += "精确度："+accu+"<br/>";
-			var altAcc = codns.altitudeAccuracy;//获取海拔信息的精确度；
-			str += "海拔精确度："+altAcc+"<br/>";
-			var head = codns.heading;//获取设备的移动方向；
-			str += "移动方向："+head+"<br/>";
-			var sped = codns.speed;//获取设备的移动速度；
-			str += "移动速度："+sped;
-			alert( str );
-			var mp = new BMap.Map('map');  
-//			mp.centerAndZoom(new BMap.Point(112,31), 11);  
-			mp.centerAndZoom(new BMap.Point(longt,lat), 18);  
-		}
-    	function getPOS(){
-  			plus.geolocation.getCurrentPosition(  geoInf, function ( e ) {
-				alert( "获取位置信息失败："+e.message );
-	   		});
-  		}
-   		document.addEventListener('plusready', function(){
-// 			alert("welcome to Html5plus!");
-	
-   	   	});
-   		function loadScript() {  
-		  var script = document.createElement("script");  
-		  script.src = "http://api.map.baidu.com/api?v=1.5&ak=2LUkkKOQZAA540yq3ciYRKtv&callback=getPOS";  
-		  document.body.appendChild(script);  
-		}  
-			   
-		window.onload = loadScript;  
-   		
+//  	function geoInf( position ) {
+//			var str = "";
+//			var timeflag = position.timestamp;//获取到地理位置信息的时间戳；一个毫秒数；
+//			str += "时间戳："+timeflag+"<br/>";
+//			var codns = position.coords;//获取地理坐标信息；
+//			var lat = codns.latitude;//获取到当前位置的纬度；
+//			str += "纬度："+lat+"<br/>";
+//			var longt = codns.longitude;//获取到当前位置的经度
+//			str += "经度："+longt+"<br/>";
+//			var alt = codns.altitude;//获取到当前位置的海拔信息；
+//			str += "海拔："+alt+"<br/>";
+//			var accu = codns.accuracy;//地理坐标信息精确度信息；
+//			str += "精确度："+accu+"<br/>";
+//			var altAcc = codns.altitudeAccuracy;//获取海拔信息的精确度；
+//			str += "海拔精确度："+altAcc+"<br/>";
+//			var head = codns.heading;//获取设备的移动方向；
+//			str += "移动方向："+head+"<br/>";
+//			var sped = codns.speed;//获取设备的移动速度；
+//			str += "移动速度："+sped;
+//			alert( str );
+//			var mp = new BMap.Map('map');  
+////			mp.centerAndZoom(new BMap.Point(112,31), 11);  
+//			mp.centerAndZoom(new BMap.Point(longt,lat), 18);  
+//		}
+//  	function getPOS(){
+//			plus.geolocation.getCurrentPosition(  geoInf, function ( e ) {
+//				alert( "获取位置信息失败："+e.message );
+//	   		});
+//		}
+// 		document.addEventListener('plusready', function(){
+//// 			alert("welcome to Html5plus!");
+//	
+// 	   	});
+// 		function loadBmapScript() {  
+//		  var script = document.createElement("script");  
+//		  script.src = "http://api.map.baidu.com/api?v=1.5&ak=2LUkkKOQZAA540yq3ciYRKtv";  
+//		  document.body.appendChild(script);  
+//		}  
+//			   
+//		window.onload = loadBmapScript;  
     </script>
 </head>
 <body>
+	<header class="mui-bar mui-bar-nav">
+		<a class="mui-icon mui-icon-bars mui-pull-left menua"></a>
+		<a class="mui-icon mui-icon-plus mui-pull-right adda"></a>
+		<h1 class="mui-title">map</h1>
+		<!--<span class="mui-icon mui-icon-location"></span>-->
+	</header>
+	<!--map-->
+	<div id="map" style="width: 100%;height: 420px; background-color: #000000;"></div>
 	
-	<div id="map" style="width: 100%;height: 400px;"></div>
-	This is a show “helloworld” default page,your can click this button <button onclick="getPOS()">click me!</button> to show a "hello world" message!
+	<script src="ui/index/index.js"></script>
 </body>
 </html>
