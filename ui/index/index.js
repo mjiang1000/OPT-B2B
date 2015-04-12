@@ -6,7 +6,7 @@ var showMenu = false;
 var menu = null;
 var add = null;
 var detail = null;
-var bmap = null;
+
 // 所有方法都放到这里
 mui.plusReady(function(){
 	// 获取任务
@@ -37,31 +37,34 @@ mui.plusReady(function(){
 	};
 	
 	
-	plus.geolocation.getCurrentPosition(function(pos){
-		var codns = pos.coords;
-		var lat = codns.latitude;//获取到当前位置的纬度；
-		var longt = codns.longitude;//获取到当前位置的经度
-		var alt = codns.altitude;//获取到当前位置的海拔信息；
-		if(!bmap){
-			alert("地图初始化错误");	
-		}
-		var point = new BMap.Point(longt, lat);  
-		bmap.centerAndZoom(point, 16);      
-	},function(e){
-		alert(e.message);
-	});
+//	plus.geolocation.getCurrentPosition(function(pos){
+//		var codns = pos.coords;
+//		var lat = codns.latitude;//获取到当前位置的纬度；
+//		var longt = codns.longitude;//获取到当前位置的经度
+//		var alt = codns.altitude;//获取到当前位置的海拔信息；
+//		if(!bmap){
+//			alert("地图初始化错误");	
+//		}
+//		var point = new BMap.Point(longt, lat);  
+//		bmap.centerAndZoom(point, 16);   
+//		
+//		var marker = new BMap.Marker(point);        // 创建标注    
+//		bmap.addOverlay(marker);
+//	},function(e){
+//		alert(e.message);
+//	});
 	
 });
 
 function initmap(){
 
 	if(typeof BMap =="undefined"){
-//		$("#map").hide();
 		alert("bmap 请打开网络连接");
 		return;
 	}
   	bmap=new BMap.Map("map");
-    bmap.centerAndZoom(new BMap.Point(111, 30), 5);         
+    bmap.centerAndZoom(new BMap.Point(111, 30), 5);      
+    bmap.addOverlay(new BMap.Marker(new BMap.Point(111, 30)));
 }	
 
 

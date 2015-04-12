@@ -8,46 +8,81 @@ mui.init({
 
 // 所有的方法都放到这里
 mui.plusReady(function(){
-//	initDoneList();
+//	getTaskList();
+var smapleJSON = {"0":[
+	{
+		"psid":"2014-5-1-123-0",
+		"time":"14:00",
+		"driver":"xiao li",
+		"carID":"Axx1234",
+		"geo":"",
+		"oilType":"93#A",
+		"num":4.5,
+		"destination":[
+			{
+				"x":1223,
+				"y":1234,
+				"nameDescrpt":"xxx化工"
+			},{
+				"x":1223,
+				"y":1234,
+				"nameDescrpt":"xxx化工"
+			}
+		]
+	},{
+		"psid":"2014-5-1-123-01",
+		"time":"16:00",
+		"driver":"xiao li",
+		"carID":"Axx1234",
+		"geo":"",
+		"oilType":"93#A",
+		"num":4.5,
+		"destination":[
+			{
+				"x":1223,
+				"y":1234,
+				"nameDescrpt":"xxx化工"
+			},{
+				"x":1223,
+				"y":1234,
+				"nameDescrpt":"xxx化工"
+			}
+		]
+	}
+]}
+	initTaskList(smapleJSON["0"]);
+	
 //	
 //	// 添加已完成事项
 //	window.addEventListener('doneItem', doneItemHandler);
 });
 
-// 初始化待办事项
-function initDoneList(){
-	var $ul = $('#donelist').empty();
-	qiao.h.query(qiao.h.db(), 'select * from t_plan_day_done order by id desc', function(res){
-		for (i = 0; i < res.rows.length; i++) {
-			$ul.append(genLi(res.rows.item(i).plan_title));
-		}
 
-		showList($ul);
+function initTaskList(obj){
+	
+	var $ul = $('#taskList').empty();
+	for (i = 0; i < obj.length; i++) {
+		$ul.append(genLi(obj[i].psid));
+//		showList($ul);
+	}
+	
+	$ul.on('click','li',function(e){
+		var li = e.target;
+		//getPSinfo();
+		drawPSline();
+		//
+		showPSinfo();
 	});
 }
-function genLi(title){
-	return '<li class="mui-table-view-cell">' + title + '</li>';
+function genLi(psid){
+var title = "配送编号："+psid;
+var li = '<li class=\"mui-table-view-cell\"><a class=\"mui-navigate-right\" href="#">'+title+'</a></li>';
+	return $(li);
 }
 function showList(ul){
 	if(ul.find('li').size() > 0 &&  ul.is(':hidden')) ul.show();
 }
 
-// 添加已完成事项
-function doneItemHandler(event){
-	var todoId = event.detail.todoId;
 
-	var db = qiao.h.db();
-	qiao.h.query(db, 'select * from t_plan_day_todo where id=' + todoId, function(res){
-		if(res.rows.length > 0){
-			var data = res.rows.item(0);
-			
-			qiao.h.query(db, 'select max(id) mid from t_plan_day_done', function(res1){
-				$('#donelist').prepend('<li class="mui-table-view-cell>test</li>').prepend(genLi(data.plan_title)).show();
-				
-				var id = (res1.rows.item(0).mid) ? res1.rows.item(0).mid : 0;
-				qiao.h.update(db, 'insert into t_plan_day_done (id, plan_title, plan_content) values (' + (id+1) + ', "' + data.plan_title + '", "' + data.plan_content + '")');
-				qiao.h.update(db, 'delete from t_plan_day_todo where id=' + todoId);
-			});
-		}
-	});
-}
+
+
