@@ -5,51 +5,51 @@ mui.init({
 	}
 });
 
-
+var indexPage=null;
 // 所有的方法都放到这里
 mui.plusReady(function(){
 //	getTaskList();
-var smapleJSON = {"0":[
-	{
-		"psid":"2014-5-1-123-0",
-		"time":"14:00",
-		"driver":"xiao li",
-		"carID":"Axx1234",
-		"geo":"",
-		"oilType":"93#A",
-		"num":4.5,
-		"destination":[
-			{
-				"x":1223,
-				"y":1234,
-				"nameDescrpt":"xxx化工"
-			},{
-				"x":1223,
-				"y":1234,
-				"nameDescrpt":"xxx化工"
-			}
-		]
-	},{
-		"psid":"2014-5-1-123-01",
-		"time":"16:00",
-		"driver":"xiao li",
-		"carID":"Axx1234",
-		"geo":"",
-		"oilType":"93#A",
-		"num":4.5,
-		"destination":[
-			{
-				"x":1223,
-				"y":1234,
-				"nameDescrpt":"xxx化工"
-			},{
-				"x":1223,
-				"y":1234,
-				"nameDescrpt":"xxx化工"
-			}
-		]
-	}
-]}
+	var smapleJSON = {"0":[
+		{
+			"psid":"2014-5-1-123-0",
+			"time":"14:00",
+			"driver":"xiao li",
+			"carID":"Axx1234",
+			"geo":"",
+			"oilType":"93#A",
+			"num":4.5,
+			"destination":[
+				{
+					"x":1223,
+					"y":1234,
+					"nameDescrpt":"xxx化工"
+				},{
+					"x":1223,
+					"y":1234,
+					"nameDescrpt":"xxx化工"
+				}
+			]
+		},{
+			"psid":"2014-5-1-123-01",
+			"time":"16:00",
+			"driver":"xiao li",
+			"carID":"Axx1234",
+			"geo":"",
+			"oilType":"93#A",
+			"num":4.5,
+			"destination":[
+				{
+					"x":1223,
+					"y":1234,
+					"nameDescrpt":"xxx化工"
+				},{
+					"x":1223,
+					"y":1234,
+					"nameDescrpt":"xxx化工"
+				}
+			]
+		}
+	]}
 	initTaskList(smapleJSON["0"]);
 	
 //	
@@ -66,12 +66,24 @@ function initTaskList(obj){
 //		showList($ul);
 	}
 	
-	$ul.on('click','li',function(e){
-		var li = e.target;
-		//getPSinfo();
-		drawPSline();
-		//
-		showPSinfo();
+//	$ul.on('click','li',function(e){
+//		var li = e.target;
+//		//getPSinfo();
+//		drawPSline();
+//		//
+//		showPSinfo();
+//	});
+
+	$ul.on('tap','li',function(e){
+
+		var title = this.innerText;
+		if( indexPage == null){
+			indexPage=qiao.h.indexPage();
+
+		}
+//		alert(title);
+		mui.fire(indexPage,'psId',{'id':'2015-2-01-123'});
+		mui.fire(indexPage,'psLujin',{'id':'2015-2-01-123'});
 	});
 }
 function genLi(psid){

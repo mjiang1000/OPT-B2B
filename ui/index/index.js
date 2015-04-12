@@ -53,6 +53,28 @@ mui.plusReady(function(){
 //	},function(e){
 //		alert(e.message);
 //	});
+	window.addEventListener('psId',function(e){
+		var t = e.detail.id;
+//		获取送货信息
+
+		closeMenu();
+	});
+	//psLujin
+	window.addEventListener('psLujin',function(e){
+		var t = e.detail.id;
+		closeMenu();
+//		获取送货lujing
+		var polyline = new BMap.Polyline([
+			new BMap.Point(111.399, 39.910),
+		   	new BMap.Point(116.405, 30.920)    
+		],{
+			strokeColor:"blue", 
+			strokeWeight:6, 
+			strokeOpacity:0.5
+		});
+		bmap.addOverlay(polyline);
+//		bmap.centerAndZoom(new BMap.Point(111, 30), 5);
+	});
 	
 });
 

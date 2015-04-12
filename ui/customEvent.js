@@ -1,3 +1,5 @@
+
+
 function drawPSline(){
 //	var polyline = new BMap.Polyline([    
 // 		new BMap.Point(116.399, 39.910),    
