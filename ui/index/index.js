@@ -11,14 +11,17 @@ var detail = null;
 mui.plusReady(function(){
 	// 获取任务
 //	getMask();
-
+//横屏
+	if (mui.os.android) {
+		plus.screen.lockOrientation("landscape-primary");
+	}
 
 	// 侧滑菜单
 	main = qiao.h.indexPage();
 	var menuoptions = qiao.h.page('menu', {
 		styles : {
 			left:0,
-			width:'70%',
+			width:'50%',
 			zindex:-1
 		}
 	});
@@ -26,7 +29,22 @@ mui.plusReady(function(){
 	qiao.on('.mui-icon-bars', 'tap', opMenu);
 	main.addEventListener('maskClick', opMenu);
 	mui.menu = opMenu;
+	
+	
+	var mapContainer = $("#mapContainer");
+	var div = '<div style="height: 44px;"></div>';
+	mapContainer.append($(div));
+	var mch = mapContainer.height();
+	var mcw = mapContainer.width();
+	var mapHeight = (mch)- 44 + 'px';
+	alert(mapHeight);
+	
+	var html = '<div id="map" style="background-color:#000000;width: 100%;height: '+mapHeight+';"></div>'
+	mapContainer.append($(html));
 	initmap();
+	
+	
+	
 	 //退出
 	mui.back = function(){
 		if(showMenu){
@@ -89,9 +107,6 @@ function initmap(){
     bmap.addOverlay(new BMap.Marker(new BMap.Point(111, 30)));
 }	
 
-
-
-
 // menu
 function opMenu(){
 	if(showMenu){
@@ -105,7 +120,7 @@ function openMenu(){
 		menu.show('none', 0, function() {
 			main.setStyle({
 				mask: 'rgba(0,0,0,0.4)',
-				left: '70%',
+				left: '50%',
 				transition: {
 					duration: 150
 				}

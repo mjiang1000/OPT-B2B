@@ -6,8 +6,11 @@ mui.init({
 });
 
 var indexPage=null;
-// 所有的方法都放到这里
 mui.plusReady(function(){
+
+	plus.navigator.setCookie( "yy", "workerID=123;" );
+	var v = plus.navigator.getCookie("yy");
+//	alert(typeof v);
 //	getTaskList();
 	var smapleJSON = {"0":[
 		{
@@ -84,6 +87,10 @@ function initTaskList(obj){
 //		alert(title);
 		mui.fire(indexPage,'psId',{'id':'2015-2-01-123'});
 		mui.fire(indexPage,'psLujin',{'id':'2015-2-01-123'});
+	});
+	
+	qiao.on('#login','tap',function(e){
+
 	});
 }
 function genLi(psid){
