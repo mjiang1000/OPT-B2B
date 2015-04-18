@@ -8,11 +8,15 @@ mui.init({
 var indexPage=null;
 mui.plusReady(function(){
 
-	plus.navigator.setCookie( "yy", "workerID=123;" );
-	var v = plus.navigator.getCookie("yy");
-//	alert(typeof v);
+	var name = plus.storage.getItem("username");
+	var psw = plus.storage.getItem("psw");
+	if(!(name==null || psw==null)){
+		$("#uname").text(name);
+	}
+//	login(name,psw);
+
 //	getTaskList();
-	var smapleJSON = {"0":[
+	var smapleJSON = [
 		{
 			"psid":"2014-5-1-123-0",
 			"time":"14:00",
@@ -52,56 +56,45 @@ mui.plusReady(function(){
 				}
 			]
 		}
-	]}
-	initTaskList(smapleJSON["0"]);
+		
+	];
+	initTaskList(smapleJSON);
 	
-//	
-//	// 添加已完成事项
-//	window.addEventListener('doneItem', doneItemHandler);
+	
+
+	qiao.on('#taskList li','tap',function(e){
+		qiao.h.indexPage().evalJS('closeMenu();');
+		var psid = $(this).data('psid');
+		qiao.h.fire('map','psShow',{'psid':psid,'lines':[1,2]});
+	});
+	
+	qiao.on('#history','tap',function(e){
+		qiao.h.indexPage().evalJS('closeMenu();');
+		qiao.h.indexPage().evalJS('showBackBtn();');
+		qiao.h.show('history','slide-in-bottom',300);
+	});
+	
+
 });
 
 
 function initTaskList(obj){
-	
+//	alert(obj.length);
 	var $ul = $('#taskList').empty();
 	for (i = 0; i < obj.length; i++) {
 		$ul.append(genLi(obj[i].psid));
-//		showList($ul);
 	}
-	
-//	$ul.on('click','li',function(e){
-//		var li = e.target;
-//		//getPSinfo();
-//		drawPSline();
-//		//
-//		showPSinfo();
-//	});
-
-	$ul.on('tap','li',function(e){
-
-		var title = this.innerText;
-		if( indexPage == null){
-			indexPage=qiao.h.indexPage();
-
-		}
-//		alert(title);
-		mui.fire(indexPage,'psId',{'id':'2015-2-01-123'});
-		mui.fire(indexPage,'psLujin',{'id':'2015-2-01-123'});
-	});
-	
-	qiao.on('#login','tap',function(e){
-
-	});
+	showList($ul);
 }
 function genLi(psid){
-var title = "配送编号："+psid;
-var li = '<li class=\"mui-table-view-cell\"><a class=\"mui-navigate-right\" href="#">'+title+'</a></li>';
+	var title = "配送编号："+psid;
+	var li = '<li class=\"mui-table-view-cell\" data-psId="'+psid+'">'
+		+'<a class=\"mui-navigate-right\" href="#">'+title+'</a></li>';
 	return $(li);
 }
 function showList(ul){
 	if(ul.find('li').size() > 0 &&  ul.is(':hidden')) ul.show();
 }
-
 
 
 

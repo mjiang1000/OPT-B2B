@@ -1,11 +1,12 @@
 // 初始化
-mui.init();
-
+mui.init({
+	subpages : [qiao.h.normalPage('map')]
+});
 var main = null;
+var login = null;
+var historyPage = null;
+var canvas = null;
 var showMenu = false;
-var menu = null;
-var add = null;
-var detail = null;
 
 // 所有方法都放到这里
 mui.plusReady(function(){
@@ -25,24 +26,20 @@ mui.plusReady(function(){
 			zindex:-1
 		}
 	});
+	
+	
 	menu = mui.preload(menuoptions);
 	qiao.on('.mui-icon-bars', 'tap', opMenu);
 	main.addEventListener('maskClick', opMenu);
 	mui.menu = opMenu;
 	
-	
-	var mapContainer = $("#mapContainer");
-	var div = '<div style="height: 44px;"></div>';
-	mapContainer.append($(div));
-	var mch = mapContainer.height();
-	var mcw = mapContainer.width();
-	var mapHeight = (mch)- 44 + 'px';
-	alert(mapHeight);
-	
-	var html = '<div id="map" style="background-color:#000000;width: 100%;height: '+mapHeight+';"></div>'
-	mapContainer.append($(html));
-	initmap();
-	
+	login = mui.preload(qiao.h.normalPage('login'));
+	historyPage = mui.preload(qiao.h.normalPage('history'));
+	canvas = mui.preload(qiao.h.normalPage('canvas'));
+	qiao.on('.mui-icon-back', 'tap', hidePage);
+	qiao.on('.mui-icon-location','tap',function(e){
+		testCanvas();
+	});
 	
 	
 	 //退出
@@ -54,59 +51,20 @@ mui.plusReady(function(){
 		}
 	};
 	
-	
-//	plus.geolocation.getCurrentPosition(function(pos){
-//		var codns = pos.coords;
-//		var lat = codns.latitude;//获取到当前位置的纬度；
-//		var longt = codns.longitude;//获取到当前位置的经度
-//		var alt = codns.altitude;//获取到当前位置的海拔信息；
-//		if(!bmap){
-//			alert("地图初始化错误");	
-//		}
-//		var point = new BMap.Point(longt, lat);  
-//		bmap.centerAndZoom(point, 16);   
-//		
-//		var marker = new BMap.Marker(point);        // 创建标注    
-//		bmap.addOverlay(marker);
-//	},function(e){
-//		alert(e.message);
-//	});
+
 	window.addEventListener('psId',function(e){
 		var t = e.detail.id;
 //		获取送货信息
 
 		closeMenu();
 	});
-	//psLujin
-	window.addEventListener('psLujin',function(e){
-		var t = e.detail.id;
-		closeMenu();
-//		获取送货lujing
-		var polyline = new BMap.Polyline([
-			new BMap.Point(111.399, 39.910),
-		   	new BMap.Point(116.405, 30.920)    
-		],{
-			strokeColor:"blue", 
-			strokeWeight:6, 
-			strokeOpacity:0.5
-		});
-		bmap.addOverlay(polyline);
-//		bmap.centerAndZoom(new BMap.Point(111, 30), 5);
-	});
-	
+
 });
 
-function initmap(){
-
-	if(typeof BMap =="undefined"){
-		alert("bmap 请打开网络连接");
-		return;
-	}
-  	bmap=new BMap.Map("map");
-    bmap.centerAndZoom(new BMap.Point(111, 30), 5);      
-    bmap.addOverlay(new BMap.Marker(new BMap.Point(111, 30)));
-}	
-
+function testCanvas(){
+	showBackBtn();
+	qiao.h.show('canvas', 'slide-in-bottom', 300);
+}
 // menu
 function opMenu(){
 	if(showMenu){
@@ -116,7 +74,7 @@ function opMenu(){
 	}
 }
 function openMenu(){
-	if($('.adda').is(':visible')){
+	if($('.mui-icon-location').is(':visible')){
 		menu.show('none', 0, function() {
 			main.setStyle({
 				mask: 'rgba(0,0,0,0.4)',
@@ -148,9 +106,20 @@ function closeMenu(){
 
 function showBackBtn(){
 	$('.menua').removeClass('mui-icon-bars').addClass('mui-icon-back');
-	$('.adda').hide();
+	$('.mui-icon-location').hide();
 }
 function hideBackBtn(){
 	$('.menua').removeClass('mui-icon-back').addClass('mui-icon-bars');
-	$('.adda').show();
+	$('.mui-icon-location').show();
+}
+
+function hidePage(){
+	hideBackBtn();
+//	var cp = qiao.h.currentPage();
+//	alert(cp.url);
+	qiao.h.getPage('login').hide();
+	qiao.h.getPage('history').hide();
+	qiao.h.getPage('canvas').hide();
+	
+	qiao.h.fire('canvas','clearCanvas',{});
 }

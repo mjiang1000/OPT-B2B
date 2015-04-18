@@ -7,7 +7,7 @@
 		<!-- mui -->
 		<link href="../css/mui.min.css" rel="stylesheet"/>
 		<script src="../js/mui.min.js"></script>
-
+		<script src="../js/mui.js"></script>
 		<!-- jquery -->
 		<script type="text/javascript" src="../js/jquery-1.11.2.min.js"></script>
 		<!-- qiao.js -->
@@ -20,22 +20,19 @@
 		<div class="mui-content">
 			
 			<div class="title">今日任务</div>
-			<!--login-->
-			<div id="person" class="mui-table-view-divider"><span class="mui-icon mui-icon-person"></span><a class="title">login</a></div>
+			
 			<ul class="mui-table-view mui-table-view-chevron">
 				<li class="mui-table-view-cell mui-collapse"><a class="mui-navigate-right" href="#">新任务</a>
-					<ul class="mui-table-view mui-table-view-chevron" id="taskList">
-					</ul>
+					<ul class="mui-table-view mui-table-view-chevron" id="taskList">	</ul>
 				</li>
 				<li class="mui-table-view-cell mui-collapse">
 					<a class="mui-navigate-right" href="#">已完成任务</a>
-					<ul class="mui-table-view mui-table-view-chevron" id="doneList">
-					</ul>
+					<ul class="mui-table-view mui-table-view-chevron" id="doneList">	</ul>
 				</li>
 			</ul>
 			<!--history-->
 			<div > 
-				<button class="mui-btn mui-btn-primary" style="width: 60%;bottom: 10px;position: absolute;margin: 0 20% 0 20%;">历史</button>
+				<button id='history' class="mui-btn mui-btn-primary" style="width: 60%;top: 60px;position: relative;margin: 0 20% 0 20%;">历史</button>
 			</div>
 
 		</div>
