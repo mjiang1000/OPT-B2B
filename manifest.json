@@ -197,7 +197,7 @@
                     "xhdpi": "", /*720P高分屏启动图片，分辨率：720x1242*/
                     "xxhdpi": ""/*1080P高分屏启动图片，分辨率：1080x1882*/
                 }
-            }
+            },"plugins":{"statics":{"description":"管理消息推送能力"},"speech":{},"push":{"description":"管理消息推送能力","cover":"false"},"share":{},"maps":{"description":"地图插件"},"payment":{"description":"支付插件"},"oauth":{"description":"健全插件"}}
         }
     }
 }

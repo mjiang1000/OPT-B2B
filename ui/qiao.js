@@ -127,7 +127,7 @@ qiao.h.prompt = function(options, ok, cancel){
 		var i = e.index;
 		if(i == 0 && ok) ok(e.value);
 		if(i == 1 && cancel) cancel(e.value);
-	}, opst.title, opt.content, opt.cbtn);
+	}, opt.title, opt.content, opt.cbtn);
 };
 
 

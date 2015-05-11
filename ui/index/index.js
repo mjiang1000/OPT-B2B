@@ -10,12 +10,7 @@ var showMenu = false;
 
 // 所有方法都放到这里
 mui.plusReady(function(){
-	// 获取任务
-//	getMask();
-//横屏
-	if (mui.os.android) {
-		plus.screen.lockOrientation("landscape-primary");
-	}
+
 
 	// 侧滑菜单
 	main = qiao.h.indexPage();
@@ -28,17 +23,19 @@ mui.plusReady(function(){
 	});
 	
 	
-	menu = mui.preload(menuoptions);
-	qiao.on('.mui-icon-bars', 'tap', opMenu);
-	main.addEventListener('maskClick', opMenu);
-	mui.menu = opMenu;
+//	menu = mui.preload(menuoptions);
+//	qiao.on('.mui-icon-bars', 'tap', opMenu);
+//	main.addEventListener('maskClick', opMenu);
+//	mui.menu = opMenu;
+//	
+qiao.on('.mui-icon-bars', 'tap', function(e){
 	
-	login = mui.preload(qiao.h.normalPage('login'));
+});
 	historyPage = mui.preload(qiao.h.normalPage('history'));
 	canvas = mui.preload(qiao.h.normalPage('canvas'));
 	qiao.on('.mui-icon-back', 'tap', hidePage);
 	qiao.on('.mui-icon-location','tap',function(e){
-		testCanvas();
+		   
 	});
 	
 	
@@ -51,6 +48,7 @@ mui.plusReady(function(){
 		}
 	};
 	
+	
 
 	window.addEventListener('psId',function(e){
 		var t = e.detail.id;
@@ -58,13 +56,12 @@ mui.plusReady(function(){
 
 		closeMenu();
 	});
-
+	qiao.on('.mui-icon-checkmarkempty','tap',function(){
+		qiao.h.getPage('canvas').evalJS('upload();');
+	});
 });
 
-function testCanvas(){
-	showBackBtn();
-	qiao.h.show('canvas', 'slide-in-bottom', 300);
-}
+
 // menu
 function opMenu(){
 	if(showMenu){
@@ -108,18 +105,21 @@ function showBackBtn(){
 	$('.menua').removeClass('mui-icon-bars').addClass('mui-icon-back');
 	$('.mui-icon-location').hide();
 }
+
+function showCanvasOKbtn(){
+	$('.menua').removeClass('mui-icon-bars').addClass('mui-icon-back');
+	$('.mui-icon-location').hide();
+	$('.mui-icon-checkmarkempty').css("display","block");
+}
 function hideBackBtn(){
 	$('.menua').removeClass('mui-icon-back').addClass('mui-icon-bars');
 	$('.mui-icon-location').show();
+	$('.mui-icon-checkmarkempty').css("display","none");
 }
 
 function hidePage(){
 	hideBackBtn();
-//	var cp = qiao.h.currentPage();
-//	alert(cp.url);
-	qiao.h.getPage('login').hide();
 	qiao.h.getPage('history').hide();
 	qiao.h.getPage('canvas').hide();
-	
 	qiao.h.fire('canvas','clearCanvas',{});
 }

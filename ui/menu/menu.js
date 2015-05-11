@@ -4,7 +4,8 @@ mui.init({
 		backbutton : false
 	}
 });
-
+//var ot_delischemeServlet = "http://202.197.58.203:8080/opt-delivery/ot_delischemeServlet";
+var ot_delischemeServlet = "http://202.197.58.203:8080/opt-delivery/ot_delischemeServlet";
 var indexPage=null;
 mui.plusReady(function(){
 
@@ -13,59 +14,13 @@ mui.plusReady(function(){
 	if(!(name==null || psw==null)){
 		$("#uname").text(name);
 	}
-//	login(name,psw);
 
-//	getTaskList();
-	var smapleJSON = [
-		{
-			"psid":"2014-5-1-123-0",
-			"time":"14:00",
-			"driver":"xiao li",
-			"carID":"Axx1234",
-			"geo":"",
-			"oilType":"93#A",
-			"num":4.5,
-			"destination":[
-				{
-					"x":1223,
-					"y":1234,
-					"nameDescrpt":"xxx化工"
-				},{
-					"x":1223,
-					"y":1234,
-					"nameDescrpt":"xxx化工"
-				}
-			]
-		},{
-			"psid":"2014-5-1-123-01",
-			"time":"16:00",
-			"driver":"xiao li",
-			"carID":"Axx1234",
-			"geo":"",
-			"oilType":"93#A",
-			"num":4.5,
-			"destination":[
-				{
-					"x":1223,
-					"y":1234,
-					"nameDescrpt":"xxx化工"
-				},{
-					"x":1223,
-					"y":1234,
-					"nameDescrpt":"xxx化工"
-				}
-			]
-		}
-		
-	];
-	initTaskList(smapleJSON);
-	
-	
+	getTaskList();
 
 	qiao.on('#taskList li','tap',function(e){
 		qiao.h.indexPage().evalJS('closeMenu();');
 		var psid = $(this).data('psid');
-		qiao.h.fire('map','psShow',{'psid':psid,'lines':[1,2]});
+		qiao.h.fire('map','psShow',{'psid':psid});
 	});
 	
 	qiao.on('#history','tap',function(e){
@@ -76,18 +31,38 @@ mui.plusReady(function(){
 	
 
 });
+function getTaskList(){
+	var Vechicle = "1223";
+	mui.ajax(ot_delischemeServlet,{
+			data:{
+				'Vechicle':Vechicle
+			},
+			type:"post",
+			success:function(d){
+				
+				var data = JSON.parse(d);
+				if(data.succ=="true"){
+					initTaskList(eval(data.list));
+				}else{
+					return;
+				}
+			},
+			error:function(){
+				alert('ere');
+			}
+		});	
+}
 
-
-function initTaskList(obj){
-//	alert(obj.length);
+function initTaskList(list){
+//	alert(list.length);
 	var $ul = $('#taskList').empty();
-	for (i = 0; i < obj.length; i++) {
-		$ul.append(genLi(obj[i].psid));
+	for (i = 0; i < list.length; i++) {
+		$ul.append(genLi(list[i].ID));
 	}
 	showList($ul);
 }
 function genLi(psid){
-	var title = "配送编号："+psid;
+	var title = "任务编号："+psid;
 	var li = '<li class=\"mui-table-view-cell\" data-psId="'+psid+'">'
 		+'<a class=\"mui-navigate-right\" href="#">'+title+'</a></li>';
 	return $(li);

@@ -16,37 +16,39 @@
 			html,body{
 				height: 100%;
 			}
-			div{
-				display: inline-block;
-				margin-top: 3px ;
-				margin-left:2px ;
-				margin-right:4px ;
-				
+			.left{
+				  position: absolute;
+				  z-index: 1;
+				  height: 100%;
+				  width: 160px;
+				  /*background-color: rgb(12,32,55);*/
 			}
-			button{
-				margin-right: 4px;
+			.right{
+				  position: absolute;
+				  /* background-color: rgb(112,132,255); */
+				  width: 100%;
+				  height: 100%;
+				  padding-left:160px ;
 			}
 			canvas{
-				display: block;
 				width: 100%;
-				height: 80%;
+				height: 100%;
 			}
-			footer{
-				background-color: #f1f1f1;
-				/*float: ;*/
-				height: 20%;
-				
+			#okAndUpload{
+				margin: 4px 0px 0px  52px;
 			}
 		</style>
 	</head>
 	<body>
-		<canvas id="sign"></canvas>
-		<footer>
-			<div class="title">签名</div>
-			<div class="title">编号</div>
-			<div><button >ok</button> <button> cancel</button></div>
-		</footer>
+		<div class="left">
+			<ul id="detail" class="mui-table-view"></ul>
+			<button id ="okAndUpload" class="mui-btn mui-btn-primary">签字</button>
+		</div>
+		<div class="right">
+			<canvas id="sign"></canvas>
+		</div>
 		
+		<script type="text/javascript" src="../ui/canvas/Canvas2Image.js" ></script>
 		<script src="../ui/canvas/canvas.js"></script>
 	</body>
 </html>
